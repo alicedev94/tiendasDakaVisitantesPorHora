@@ -1,7 +1,7 @@
-const { User, userSchema } = require("../models/users");
+const { VisitorsPerHour, visitorsSchema } = require("../models/VisitorsPerHour");
 
 function setupModels(sequelize) {
-  User.init(userSchema, User.config(sequelize));
+  VisitorsPerHour.init(visitorsSchema, VisitorsPerHour.config(sequelize));
 }
 
 module.exports = setupModels;
