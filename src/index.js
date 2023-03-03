@@ -1,20 +1,21 @@
 /*
     objetivos
-        -
-        -
+        - monitor
+        - exec 30min
+        - optimizar insert
 */
-const { findAll, bulkLoad } = require("./controllers/main");
-async function rta() {
-  const rta = await findAll();
-  rta.map((row) =>
-    bulkLoad({
-      fechaHora: null,
-      dispositivo: "DEVICE",
-      valor: 0,
-      sucursal: "SUC",
-      fechaActualizacion: "2023-03-01T18:43:16.710Z",
-    })
-  );
+const { bulkLoad, cleanTable } = require("./controllers/sequelizeController");
+require('dotenv').config();
+const howOften = process.env.UPDATE_TIME;
+
+async function updateTable() {
+  cleanTable(function() {
+    bulkLoad();
+  });
 }
 
-rta();
+setInterval( async () => {
+  await updateTable();
+}, howOften);
+
+
